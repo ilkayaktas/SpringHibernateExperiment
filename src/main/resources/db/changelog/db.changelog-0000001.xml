@@ -9,7 +9,6 @@
                 <constraints primaryKey="true" primaryKeyName="pk_person"/>
             </column>
             <column name="name" type="VARCHAR(255)"/>
-            <column name="address_id" type="BIGINT"/>
         </createTable>
         <createTable tableName="address">
             <column autoIncrement="true" name="id" type="BIGINT">
@@ -17,18 +16,47 @@
             </column>
             <column name="address" type="VARCHAR(255)"/>
             <column name="city" type="VARCHAR(255)"/>
+            <column name="person_id" type="BIGINT"/>
         </createTable>
          <addForeignKeyConstraint
-            baseColumnNames="address_id"
-            baseTableName="person"
+            baseColumnNames="person_id"
+            baseTableName="address"
             constraintName="fk_address_person"
             onDelete="CASCADE"
             onUpdate="RESTRICT"
             referencedColumnNames="id"
-            referencedTableName="address"/>
+            referencedTableName="person"/>
         <addUniqueConstraint
           columnNames="id"
           constraintName="unique-id"
           tableName="person"/>
+    </changeSet>
+    <changeSet  author="ilkayaktas"  id="insert-address">
+        <insert
+                dbms="mysql"
+                tableName="person">
+            <column  name="name"  value="İlkay"/>
+        </insert>
+        <insert
+                dbms="mysql"
+                tableName="address">
+            <column  name="address"  value="address1"/>
+            <column  name="city"  value="city1"/>
+            <column  name="person_id"  value="1"/>
+        </insert>
+        <insert
+                dbms="mysql"
+                tableName="address">
+            <column  name="address"  value="address2"/>
+            <column  name="city"  value="city2"/>
+            <column  name="person_id"  value="1"/>
+        </insert>
+        <insert
+                dbms="mysql"
+                tableName="address">
+            <column  name="address"  value="address2"/>
+            <column  name="city"  value="city2"/>
+            <column  name="person_id"  value="1"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>
